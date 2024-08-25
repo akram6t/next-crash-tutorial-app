@@ -1,0 +1,22 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base{
+  body {
+    @apply dark:bg-dark bg-light dark:text-gray-100
+  }
+}
+
+html{
+  font-size: 110%;
+}
+
+@import url('./elements.css');
+
+@media (max-width: 768px) {
+  html {
+    font-size: 100%;
+  }
+}
