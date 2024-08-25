@@ -4,7 +4,11 @@ import { useTheme } from 'next-themes';
 import { IconSun, IconMoon } from "@tabler/icons-react";
 import { useEffect, useState } from 'react';
 
-export default function ThemeSwitcher() {
+interface ThemeSwitchProps {
+    noIconThemeChange?: boolean
+}
+
+export default function ThemeSwitcher({ noIconThemeChange }: ThemeSwitchProps) {
     const { systemTheme, theme, setTheme } = useTheme();
     const [mounted, setMounted] = useState(false);
 
@@ -23,7 +27,7 @@ export default function ThemeSwitcher() {
     }
 
     return (
-        <button onClick={toggleTheme} className='p-2 text-gray-800 dark:text-slate-50 rounded-full'>
+        <button onClick={toggleTheme} className={`p-2 ${noIconThemeChange ? 'text-slate-50' : 'text-gray-800 dark:text-slate-50'} rounded-full`}>
             {currentTheme === 'dark' ? <IconSun /> : <IconMoon />}
         </button>
     )

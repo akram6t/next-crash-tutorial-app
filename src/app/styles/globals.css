@@ -20,3 +20,9 @@ html{
     font-size: 100%;
   }
 }
+
+
+/* some css */
+.divider{
+  @apply border-b border-gray-600
+}
