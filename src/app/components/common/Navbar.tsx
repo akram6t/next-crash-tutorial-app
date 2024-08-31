@@ -3,12 +3,12 @@
 
 import { useContext, useState } from 'react';
 import Link from 'next/link';
-import { IconSearch, IconSun, IconUserCircle, IconMenu2 } from '@tabler/icons-react';
+import { IconSearch, IconSun, IconUserCircle, IconMenu2, IconHtml, IconSausage, IconBrandJavascript, IconLanguage } from '@tabler/icons-react';
 import ThemeSwitcher from '../ThemeSwitch';
 import TutorialsItems from '../TutorialsItems';
 import Image from 'next/image';
 import DropdownMenu from '../ui/DropDown';
-import {AuthContext} from '@/app/context/AuthProvider';
+import { AuthContext } from '@/app/context/AuthProvider';
 
 interface NavbarProps {
     showTutorials?: boolean;
@@ -25,30 +25,47 @@ const Navbar = ({ showTutorials }: NavbarProps) => {
     return (
         <nav className="bg-gradient-to-r from-indigo-900 to-purple-900 shadow-lg sticky top-0 w-full z-10">
             <div className="mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex items-center justify-between h-16">
+                <div className="flex items-center justify-between py-1">
+
                     <div className="flex items-center">
+                        <button type="button" className="lg:hidden me-3 text-white hover:text-gray-200 focus:outline-none" onClick={toggleMobileMenu}>
+                            <IconMenu2 size={24} />
+                        </button>
                         <div className="flex-shrink-0">
                             <Link href="/" className="text-white text-2xl font-bold">
                                 <Image
-                                    width={40}
-                                    height={40}
+                                    width={30}
+                                    height={30}
                                     className="rounded-full overflow-hidden"
                                     src={`${process.env.NEXT_PUBLIC_BASE_URL}/images/logo1.webp`} alt='logo' />
                             </Link>
                         </div>
                         <div className="hidden lg:block ml-10">
                             <div className="flex items-baseline space-x-4">
-                                <Link href="/" className="text-white hover:bg-white hover:bg-opacity-20 px-3 py-2 rounded-md text-sm font-medium">Home</Link>
-                                <Link href="/about" className="text-white hover:bg-white hover:bg-opacity-20 px-3 py-2 rounded-md text-sm font-medium">About</Link>
-                                <Link href="/services" className="text-white hover:bg-white hover:bg-opacity-20 px-3 py-2 rounded-md text-sm font-medium">Services</Link>
-                                <Link href="/contact" className="text-white hover:bg-white hover:bg-opacity-20 px-3 py-2 rounded-md text-sm font-medium">Contact</Link>
+
+                                <DropdownMenu align='left' showIcon label={'Tutorials'}>
+                                    <DropdownMenu.Item label='Learn HTML' icon={<IconHtml/>} />
+                                    <DropdownMenu.Item label='Learn CSS' icon={<IconSausage/>} />
+                                    <DropdownMenu.Item label='Learn Javascript ' icon={<IconBrandJavascript/>} />
+                                </DropdownMenu>
+
+
+                                <DropdownMenu align='left' showIcon label={'Services'}>
+                                    <DropdownMenu.Item label='Tutorials' icon={<IconLanguage/>}/>
+                                </DropdownMenu>
+
+                                <Link href="/about" className="text-white hover:bg-white hover:bg-opacity-20 px-3 py-1 rounded-md text-sm font-medium">Blogs</Link>
+                                <Link href="/contact" className="text-white hover:bg-white hover:bg-opacity-20 px-3 py-1 rounded-md text-sm font-medium">About Us</Link>
                             </div>
                         </div>
                     </div>
 
                     <div className="flex items-center">
+                        <button id="themeToggle" className="text-white hover:text-gray-200 focus:outline-none">
+                            <ThemeSwitcher noIconThemeChange />
+                        </button>
 
-                        <button className="text-white mr-2 bg-white bg-opacity-20 rounded-full p-2 hover:bg-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50">
+                        <button className="inline-block lg:hidden text-white mr-3 bg-white bg-opacity-20 rounded-full p-2 hover:bg-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50">
                             <IconSearch size={18} />
                         </button>
 
@@ -60,29 +77,27 @@ const Navbar = ({ showTutorials }: NavbarProps) => {
                         </div>
 
                         <div className="flex items-center space-x-2">
-                            <button className="text-white border border-white px-3 py-1 rounded-md text-sm font-medium hover:bg-white hover:text-indigo-900">Login</button>
-                            <button className="hidden lg:inline-block bg-white text-indigo-900 px-3 py-1 rounded-md text-sm font-medium hover:bg-opacity-90">Sign Up</button>
-                            <button id="themeToggle" className="text-white hover:text-gray-200 focus:outline-none ml-2">
-                                <ThemeSwitcher noIconThemeChange />
-                            </button>
 
-                            <button className="text-white hover:text-gray-200 focus:outline-none">
-                                <DropdownMenu showIcon label={<IconUserCircle size={24} />}>
-                                    <DropdownMenu.Item label="Account settings" href="/account" />
-                                    <DropdownMenu.Item label="Support" href="/support" />
-                                    <DropdownMenu.Item label="License" href="/license" />
-                                    <DropdownMenu.Item label="Sign out" href="/signout" />
-                                </DropdownMenu>
-                            </button>
+                            {
+                                !isAuthenticated &&
+                                (<>
+                                    <button className="text-white border border-white px-3 py-1 rounded-md text-sm font-medium hover:bg-white hover:text-indigo-900">Login</button>
+                                    <button className="hidden lg:inline-block bg-white text-indigo-900 px-3 py-1 rounded-md text-sm font-medium hover:bg-opacity-90">Sign Up</button>
+                                </>)
+                            }
+
+                            {!isAuthenticated &&
+                                    <DropdownMenu align='right' showIcon label={<IconUserCircle size={24} />}>
+                                        <DropdownMenu.Item label="Account settings"/>
+                                        <DropdownMenu.Item label="Support"/>
+                                        <DropdownMenu.Item label="License"/>
+                                        <DropdownMenu.Item label="Sign out"/>
+                                    </DropdownMenu>
+                            }
 
                         </div>
                     </div>
 
-                    <div className="flex md:hidden">
-                        <button type="button" className="text-white hover:text-gray-200 focus:outline-none" onClick={toggleMobileMenu}>
-                            <IconMenu2 size={24} />
-                        </button>
-                    </div>
                 </div>
             </div>
 
