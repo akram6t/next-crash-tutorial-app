@@ -7,8 +7,10 @@ import { IconSearch, IconSun, IconUserCircle, IconMenu2, IconHtml, IconSausage, 
 import ThemeSwitcher from '../ThemeSwitch';
 import TutorialsItems from '../TutorialsItems';
 import Image from 'next/image';
-import DropdownMenu from '../ui/DropDown';
+// import DropdownMenu from '../ui/DropDown';
 import { AuthContext } from '@/app/context/AuthProvider';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '../ui/dropdown-menu';
+import { ChevronDown } from 'lucide-react';
 
 interface NavbarProps {
     showTutorials?: boolean;
@@ -43,16 +45,32 @@ const Navbar = ({ showTutorials }: NavbarProps) => {
                         <div className="hidden lg:block ml-10">
                             <div className="flex items-baseline space-x-4">
 
-                                <DropdownMenu align='left' showIcon label={'Tutorials'}>
+                                {/* <DropdownMenu align='left' showIcon label={'Tutorials'}>
                                     <DropdownMenu.Item label='Learn HTML' icon={<IconHtml/>} />
                                     <DropdownMenu.Item label='Learn CSS' icon={<IconSausage/>} />
                                     <DropdownMenu.Item label='Learn Javascript ' icon={<IconBrandJavascript/>} />
+                                </DropdownMenu> */}
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger>
+                                        <span className='text-white font-medium flex items-center space-x-3'>Tutorials
+                                            <ChevronDown/>
+                                        </span>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent>
+                                        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                                        <DropdownMenuSeparator />
+                                        <DropdownMenuItem>Profile</DropdownMenuItem>
+                                        <DropdownMenuItem>Billing</DropdownMenuItem>
+                                        <DropdownMenuItem>Team</DropdownMenuItem>
+                                        <DropdownMenuItem>Subscription</DropdownMenuItem>
+                                    </DropdownMenuContent>
                                 </DropdownMenu>
 
 
-                                <DropdownMenu align='left' showIcon label={'Services'}>
+
+                                {/* <DropdownMenu align='left' showIcon label={'Services'}>
                                     <DropdownMenu.Item label='Tutorials' icon={<IconLanguage/>}/>
-                                </DropdownMenu>
+                                </DropdownMenu> */}
 
                                 <Link href="/about" className="text-white hover:bg-white hover:bg-opacity-20 px-3 py-1 rounded-md text-sm font-medium">Blogs</Link>
                                 <Link href="/contact" className="text-white hover:bg-white hover:bg-opacity-20 px-3 py-1 rounded-md text-sm font-medium">About Us</Link>
@@ -86,14 +104,14 @@ const Navbar = ({ showTutorials }: NavbarProps) => {
                                 </>)
                             }
 
-                            {!isAuthenticated &&
+                            {/* {!isAuthenticated &&
                                     <DropdownMenu align='right' showIcon label={<IconUserCircle size={24} />}>
                                         <DropdownMenu.Item label="Account settings"/>
                                         <DropdownMenu.Item label="Support"/>
                                         <DropdownMenu.Item label="License"/>
                                         <DropdownMenu.Item label="Sign out"/>
                                     </DropdownMenu>
-                            }
+                            } */}
 
                         </div>
                     </div>

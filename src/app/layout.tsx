@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Open_Sans, Montserrat } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import "./styles/globals.css";
-import ThemeSwitcher from "./components/ThemeSwitch";
 
 const Montserrat_SansSarif = Montserrat({ subsets: ["latin"] });
 

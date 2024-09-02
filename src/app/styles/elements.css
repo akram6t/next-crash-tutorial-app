@@ -1,7 +1,0 @@
-/* themed light clicks effect */
-.click-effect{
-    @apply transition-colors hover:bg-dark dark:hover:bg-light hover:bg-opacity-5 active:bg-opacity-10 dark:hover:bg-opacity-5 dark:active:bg-opacity-10
-}
-.click-effect-primary{
-    @apply transition-colors hover:bg-primary-500 hover:bg-opacity-10 active:bg-opacity-20
-}
