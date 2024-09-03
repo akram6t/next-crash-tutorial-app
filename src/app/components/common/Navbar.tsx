@@ -3,11 +3,10 @@
 
 import { useContext, useState } from 'react';
 import Link from 'next/link';
-import { IconSearch, IconSun, IconUserCircle, IconMenu2, IconHtml, IconSausage, IconBrandJavascript, IconLanguage } from '@tabler/icons-react';
+import { IconSearch, IconUserCircle } from '@tabler/icons-react';
 import ThemeSwitcher from '../ThemeSwitch';
-import TutorialsItems from '../TutorialsItems';
+import TutorialsItems from '../tutorial/TutorialsItems';
 import Image from 'next/image';
-// import DropdownMenu from '../ui/DropDown';
 import { AuthContext } from '@/app/context/AuthProvider';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '../ui/dropdown-menu';
 import { ChevronDown } from 'lucide-react';
@@ -25,14 +24,12 @@ const Navbar = ({ showTutorials }: NavbarProps) => {
     };
 
     return (
-        <nav className="bg-gradient-to-r from-indigo-900 to-purple-900 shadow-lg sticky top-0 w-full z-10">
+        <nav className={`bg-gradient-to-r from-secondary-900 to-primary-900 shadow-lg sticky top-0 w-full z-10 ${!showTutorials && 'py-2'}`}>
             <div className="mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between py-1">
 
                     <div className="flex items-center">
-                        <button type="button" className="lg:hidden me-3 text-white hover:text-gray-200 focus:outline-none" onClick={toggleMobileMenu}>
-                            <IconMenu2 size={24} />
-                        </button>
+
                         <div className="flex-shrink-0">
                             <Link href="/" className="text-white text-2xl font-bold">
                                 <Image
@@ -42,14 +39,30 @@ const Navbar = ({ showTutorials }: NavbarProps) => {
                                     src={`${process.env.NEXT_PUBLIC_BASE_URL}/images/logo1.webp`} alt='logo' />
                             </Link>
                         </div>
-                        <div className="hidden lg:block ml-10">
+
+                        {/* mega menu */}
+                        <span className='md:hidden ml-2'>
+                        <DropdownMenu>
+                                    <DropdownMenuTrigger>
+                                        <span className='rounded-full text-md px-2 py-1 border border-x-gray-100 text-white font-medium flex items-center space-x-3'>Menu
+                                            <ChevronDown size={18}/>
+                                        </span>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent>
+                                        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                                        <DropdownMenuSeparator />
+                                        <DropdownMenuItem>Profile</DropdownMenuItem>
+                                        <DropdownMenuItem>Billing</DropdownMenuItem>
+                                        <DropdownMenuItem>Team</DropdownMenuItem>
+                                        <DropdownMenuItem>Subscription</DropdownMenuItem>
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
+                        </span>
+
+                        <div className="hidden md:block ml-10">
                             <div className="flex items-baseline space-x-4">
 
-                                {/* <DropdownMenu align='left' showIcon label={'Tutorials'}>
-                                    <DropdownMenu.Item label='Learn HTML' icon={<IconHtml/>} />
-                                    <DropdownMenu.Item label='Learn CSS' icon={<IconSausage/>} />
-                                    <DropdownMenu.Item label='Learn Javascript ' icon={<IconBrandJavascript/>} />
-                                </DropdownMenu> */}
+                                {/* tutorials menu */}
                                 <DropdownMenu>
                                     <DropdownMenuTrigger>
                                         <span className='text-white font-medium flex items-center space-x-3'>Tutorials
@@ -65,13 +78,7 @@ const Navbar = ({ showTutorials }: NavbarProps) => {
                                         <DropdownMenuItem>Subscription</DropdownMenuItem>
                                     </DropdownMenuContent>
                                 </DropdownMenu>
-
-
-
-                                {/* <DropdownMenu align='left' showIcon label={'Services'}>
-                                    <DropdownMenu.Item label='Tutorials' icon={<IconLanguage/>}/>
-                                </DropdownMenu> */}
-
+                                
                                 <Link href="/about" className="text-white hover:bg-white hover:bg-opacity-20 px-3 py-1 rounded-md text-sm font-medium">Blogs</Link>
                                 <Link href="/contact" className="text-white hover:bg-white hover:bg-opacity-20 px-3 py-1 rounded-md text-sm font-medium">About Us</Link>
                             </div>
@@ -104,14 +111,23 @@ const Navbar = ({ showTutorials }: NavbarProps) => {
                                 </>)
                             }
 
-                            {/* {!isAuthenticated &&
-                                    <DropdownMenu align='right' showIcon label={<IconUserCircle size={24} />}>
-                                        <DropdownMenu.Item label="Account settings"/>
-                                        <DropdownMenu.Item label="Support"/>
-                                        <DropdownMenu.Item label="License"/>
-                                        <DropdownMenu.Item label="Sign out"/>
-                                    </DropdownMenu>
-                            } */}
+                             {!isAuthenticated &&
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger>
+                                        <span className='text-white font-medium flex items-center space-x-3'>
+                                            <Image alt='profile' width={30} height={30} className='rounded-full overflow-hidden' src={'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'}/>
+                                        </span>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent>
+                                        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                                        <DropdownMenuSeparator />
+                                        <DropdownMenuItem>Profile</DropdownMenuItem>
+                                        <DropdownMenuItem>Billing</DropdownMenuItem>
+                                        <DropdownMenuItem>Team</DropdownMenuItem>
+                                        <DropdownMenuItem>Subscription</DropdownMenuItem>
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
+                            }
 
                         </div>
                     </div>
